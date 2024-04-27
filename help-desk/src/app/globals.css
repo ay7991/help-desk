@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color: 255, 255, 255;
+}
+
+@layer base {
+  * {
+   background-color: var(--background-color);
+  }
+}
