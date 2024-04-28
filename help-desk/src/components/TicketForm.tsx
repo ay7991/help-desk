@@ -9,29 +9,26 @@ const TicketForm = () => {
         const emailInput = form.elements.namedItem('email') as HTMLInputElement;
         const descriptionInput = form.elements.namedItem('description') as HTMLInputElement;
         
-        const postTicket = async () => {
-            try {
-                const post = await fetch('/api/tickets', {
-                    method: 'POST',
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: nameInput.value,
-                        email: emailInput.value,
-                        description: descriptionInput.value
-                    })
-                });
-                if (post.ok) {
-                    console.log('Ticket successfully submitted');
-                } else {
-                    console.log('Ticket failed to submit');
-                }
-            } catch (error) {
-                console.log(error);
+        try {
+            const post = await fetch('/api/tickets', {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    description: descriptionInput.value
+                })
+            });
+            if (post.ok) {
+                console.log('Ticket successfully submitted');
+            } else {
+                console.log('Ticket failed to submit');
             }
-        } 
-        postTicket();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
