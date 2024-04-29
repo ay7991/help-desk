@@ -21,7 +21,7 @@ const Login: React.FC = () => {
                 body: JSON.stringify({
                     email: emailInput.value,
                     password: passwordInput.value,
-                    adminKeyInput: adminKeyInput.value
+                    adminKey: adminKeyInput.value
                 })
             })
             if (post.ok) {
