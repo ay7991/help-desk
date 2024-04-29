@@ -32,7 +32,7 @@ const TicketForm = () => {
     }
 
     return (
-        <form className='flex flex-col' onSubmit={submitTicket}>
+        <form onSubmit={submitTicket}>
             <input type='text' placeholder='name' name='name' />
             <input type='text' placeholder='email' name='email' />
             <textarea placeholder='description' name='description' />
