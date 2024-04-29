@@ -22,7 +22,7 @@ model User {
   password String
   email    String  @unique
   role     Role
-  adminKey String?
+  adminkey String?
 }
 
 enum Role {
