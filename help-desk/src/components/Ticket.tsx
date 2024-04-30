@@ -4,15 +4,14 @@ interface TicketProps {
     id: number,
     name: string,
     email: string,
-    description: string,
-    status: string
+    description: string
 }
 
-const Ticket: React.FC<TicketProps> = ({id, name, email, description, status}) => {
+const Ticket: React.FC<TicketProps> = ({ id, name, email, description }) => {
     
     return (
         <main>
-            <h1> Ticket: {id}</h1>
+            <h1> Ticket: {id} </h1>
             <h2> Name: {name} </h2>
             <h2> Email: {email} </h2>
             <p> Description: {description} </p>
