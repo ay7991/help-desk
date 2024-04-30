@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../../prisma/prisma';
 
+export async function GET(req: Request) {
+    console.log('in get request');
+    const tickets = await prisma.ticket.findMany();
+    console.log(tickets);
+    return NextResponse.json({ status: 200 });
+}
+
 export async function POST(req: Request) {
     const ticketData = await req.json();
     const { name, email, description } = ticketData;
