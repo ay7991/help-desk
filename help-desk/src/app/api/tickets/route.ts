@@ -1,11 +1,9 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../../prisma/prisma';
 
-export async function GET(req: Request) {
-    console.log('in get request');
+export async function GET() {
     const tickets = await prisma.ticket.findMany();
-    console.log(tickets);
-    return NextResponse.json({ status: 200 });
+    return NextResponse.json( tickets, { status: 200 });
 }
 
 export async function POST(req: Request) {
