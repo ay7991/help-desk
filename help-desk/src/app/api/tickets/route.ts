@@ -2,8 +2,15 @@ import { NextResponse } from 'next/server';
 import prisma from '../../../../prisma/prisma';
 
 export async function GET() {
-    const tickets = await prisma.ticket.findMany();
-    return NextResponse.json( tickets, { status: 200 });
+    try {
+        const tickets = await prisma.ticket.findMany();
+        if (!tickets) {
+            return NextResponse.json({ message: 'There are no tickets' });
+        }
+        return NextResponse.json( tickets, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ error: 'Internal Server Error'}, { status: 500 });
+    }
 }
 
 export async function POST(req: Request) {
@@ -42,7 +49,7 @@ export async function PATCH(req: Request) {
             return NextResponse.json({ error: 'Unable to update status' }, { status: 409 });
         }
 
-        return NextResponse.json({ status: 204 });
+        return NextResponse.json({ newStatus: updateStatus.status }, { status: 201 });
     } catch (error) {
         console.log(error);
     }
