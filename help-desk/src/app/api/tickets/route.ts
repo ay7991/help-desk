@@ -25,3 +25,25 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Internal Server Error'}, { status: 500 });
     }
 }
+
+export async function PATCH(req: Request) {
+    const status = await req.json();
+    try {
+        const updateStatus = await prisma.ticket.update({
+            where: {
+                id: status.id
+            },
+            data: {
+                status: status.status
+            }
+        });
+
+        if (!updateStatus) {
+            return NextResponse.json({ error: 'Unable to update status' }, { status: 409 });
+        }
+
+        return NextResponse.json({ status: 204 });
+    } catch (error) {
+        console.log(error);
+    }
+}
