@@ -4,10 +4,13 @@ interface TicketProps {
     id: number,
     name: string,
     email: string,
-    description: string
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    status: string
 }
 
-const Ticket: React.FC<TicketProps> = ({ id, name, email, description }) => {
+const Ticket: React.FC<TicketProps> = ({ id, name, email, description, createdAt, updatedAt, status }) => {
     
     return (
         <main>
@@ -15,6 +18,10 @@ const Ticket: React.FC<TicketProps> = ({ id, name, email, description }) => {
             <h2> Name: {name} </h2>
             <h2> Email: {email} </h2>
             <p> Description: {description} </p>
+            <p> Status: {status} </p>
+            <p> Created At: {createdAt} </p>
+            <p> Updated At: {updatedAt} </p>
+            <label> Update Status: </label>
             <select>
                 <option> OPEN </option>
                 <option> IN PROGRESS </option>
