@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../../prisma/prisma';
+import { cookies } from 'next/headers';
 
 export async function POST(req: Request) {
     const adminData = await req.json();
@@ -23,6 +24,15 @@ export async function POST(req: Request) {
         if (findUser.adminkey !== 'admin' || adminKey !== 'admin') {
             return NextResponse.json({ error: 'User Is Not Admin'}, { status: 401 });
         }
+
+        cookies().set({
+            name: 'adminCookie',
+            value: 'adminCookie',
+            httpOnly: true,
+            path: '/admin/ticketsPanel',
+            secure: true,
+            maxAge: 43200
+        });
 
         return NextResponse.json({ status: 'User Is Admin' }, {status: 200});
     } catch (error) {
