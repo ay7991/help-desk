@@ -1,6 +1,6 @@
 ## Getting Started
 
-To run this app locally, run the following command:
+To run this app locally, cd into the "help-desk" folder, and run the following command:
 
 ``` npm run dev ```
 
