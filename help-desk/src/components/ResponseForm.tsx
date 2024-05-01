@@ -1,11 +1,8 @@
 'use client'
 import * as React from 'react';
+import { ResponseFormProps } from '@/lib/types';
 
-interface ResponseProps {
-    email: string
-}
-
-const ResponseForm: React.FC<ResponseProps> = ({ email }) => {
+const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
     const submitResponse = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         return console.log(`Would normally send an email to ${email} or the proper recipient`);
