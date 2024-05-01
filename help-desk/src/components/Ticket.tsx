@@ -1,16 +1,7 @@
 'use client'
 import * as React from 'react';
 import ResponseForm from '@/components/ResponseForm';
-
-interface TicketProps {
-    id: number,
-    name: string,
-    email: string,
-    description: string,
-    createdAt: string,
-    updatedAt: string,
-    status: string,
-}
+import { TicketProps } from '@/lib/types';
 
 const Ticket: React.FC<TicketProps> = ({ id, name, email, description, createdAt, updatedAt, status }) => {
     const updateStatus = async () => {
