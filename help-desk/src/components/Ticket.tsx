@@ -4,7 +4,7 @@ import ResponseForm from '@/components/ResponseForm';
 import { TicketProps } from '@/lib/types';
 
 const Ticket: React.FC<TicketProps> = ({ id, name, email, description, createdAt, updatedAt, status }) => {
-    const updateStatus = async () => {
+    const patchFetch = async (): Promise<void> => {
         const dropdown = document.getElementById(`ticket${id}`) as HTMLSelectElement;
         try {
             const statusUpdate = await fetch('/api/tickets', {
@@ -19,13 +19,19 @@ const Ticket: React.FC<TicketProps> = ({ id, name, email, description, createdAt
             });
 
             if (statusUpdate.ok) {
-                console.log('Ticket successfully updated!');
+                alert('Ticket successfully updated!');
             } else {
-                console.log('Unable to update ticket');
+                const response = await statusUpdate.json();
+                alert(response.error);
+                throw new Error(response.error);
             }
         } catch (error) {
             console.log(error);
         }
+    }
+    
+    const updateStatus = () => {
+        patchFetch();
     }
 
     return (
