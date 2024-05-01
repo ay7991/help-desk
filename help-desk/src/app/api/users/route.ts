@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '../../../../prisma/prisma';
 import { cookies } from 'next/headers';
 
-export async function POST(req: Request) {
+export async function POST(req: Request){
     const adminData = await req.json();
     const { email, password, adminKey } = adminData;
 
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
         });
 
         if (!findUser) {
-            return NextResponse.json({ error: 'User Not Found'}, { status: 404 });
+            return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
         }
 
         if (findUser.password !== password) {
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
             maxAge: 43200
         });
 
-        return NextResponse.json({ status: 'User Is Admin' }, {status: 200});
+        return NextResponse.json({ message: 'User Is Admin' }, {status: 200});
     } catch (error) {
         console.log('Could not find admin user: ', error);
         return NextResponse.json({ error: 'Internal Server Error'}, { status: 500 });
