@@ -32,10 +32,19 @@ const TicketForm = () => {
     }
 
     return (
-        <form onSubmit={submitTicket}>
-            <input type='text' placeholder='name' name='name' />
-            <input type='text' placeholder='email' name='email' />
-            <textarea placeholder='description' name='description' />
+        <form className="flex flex-col w-96" onSubmit={submitTicket}>
+            <label className="flex flex-col"> 
+                Name 
+                <input className="border-solid border-black border-2 mb-4 pl-1" type='text' placeholder='Name' name='name' />
+            </label> 
+            <label className="flex flex-col">
+                Email
+                <input className="border-solid border-black border-2 mb-4 pl-1" type='text' placeholder='Email' name='email' />
+            </label>
+            <label className="flex flex-col"> 
+                Description 
+                <textarea className="border-solid border-black border-2 mb-4 pl-1 h-36" placeholder='Explain the problem' name='description' />
+            </label>
             <button type="submit"> Submit </button>
         </form>
     );
