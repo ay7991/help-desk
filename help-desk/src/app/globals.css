@@ -4,10 +4,14 @@
 
 :root {
   --background-color: 255, 255, 255;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
 
 @layer base {
   * {
    background-color: var(--background-color);
+   font-family: var(--font-mono);
   }
 }
