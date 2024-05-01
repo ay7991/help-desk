@@ -25,15 +25,6 @@ export async function POST(req: Request){
             return NextResponse.json({ error: 'User Is Not Admin'}, { status: 401 });
         }
 
-        cookies().set({
-            name: 'adminCookie',
-            value: 'adminCookie',
-            httpOnly: true,
-            path: '/admin/ticketsPanel',
-            secure: true,
-            maxAge: 43200
-        });
-
         return NextResponse.json({ message: 'User Is Admin' }, {status: 200});
     } catch (error) {
         console.log('Could not find admin user: ', error);
