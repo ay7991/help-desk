@@ -12,7 +12,7 @@ const TicketsPanel: React.FC = () => {
 
     const fetchTickets = async (): Promise<void> => {
         try {
-            const response = await fetch('http://localhost:3000/api/tickets');
+            const response = await fetch('https://help-desk-eight-gamma.vercel.app/api/tickets');
             if (!response.ok) {
                 throw new Error('Failed to fetch tickets');
             } else {
