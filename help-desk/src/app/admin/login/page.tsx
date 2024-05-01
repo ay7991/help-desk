@@ -1,44 +1,16 @@
-'use client'
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
+import NavBar from '@/components/NavBar';
+import LoginForm from '@/components/LoginForm';
 
 const Login: React.FC = () => {
-    const router = useRouter();
-
-    const checkLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const emailInput = form.elements.namedItem('email') as HTMLInputElement;
-        const passwordInput = form.elements.namedItem('password') as HTMLInputElement;
-        const adminKeyInput = form.elements.namedItem('adminKey') as HTMLInputElement;
-
-        try {
-            const post = await fetch('/api/users', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: emailInput.value,
-                    password: passwordInput.value,
-                    adminKey: adminKeyInput.value
-                })
-            })
-            if (post.ok) {
-                router.push('/admin/ticketsPanel');
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     return (
-        <form onSubmit={checkLogin}>
-            <input type="text" placeholder="email" name="email" />
-            <input type="text" placeholder="password" name="password" />
-            <input type="text" placeholder="admin key" name="adminKey" />
-            <button type="submit"> Login </button>
-        </form>
+        <main className="h-screen">
+            <NavBar />
+            <section className="h-4/5 flex flex-col items-center justify-center">
+                <h1 className="mb-10 text-xl"> Admin Login </h1>
+                <LoginForm />
+            </section>
+        </main>
     );
 }
 
