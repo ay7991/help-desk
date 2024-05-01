@@ -4,9 +4,6 @@ import prisma from '../../../../prisma/prisma';
 export async function GET() {
     try {
         const tickets = await prisma.ticket.findMany();
-        if (!tickets) {
-            return NextResponse.json({ message: 'There are no tickets' });
-        }
         return NextResponse.json( tickets, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: 'Internal Server Error'}, { status: 500 });
@@ -28,7 +25,6 @@ export async function POST(req: Request) {
         });
         return NextResponse.json(ticket, {status: 201});
     } catch (error) {
-        console.log('Ticket failed to create: ', error);
         return NextResponse.json({ error: 'Internal Server Error'}, { status: 500 });
     }
 }
