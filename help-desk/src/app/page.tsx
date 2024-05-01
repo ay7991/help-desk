@@ -1,7 +1,7 @@
 import TicketForm from "@/components/TicketForm";
 import NavBar from "@/components/NavBar";
 
-const Help = () => {
+const Home = () => {
   return (
     <main className="h-screen">
       <NavBar />
@@ -13,4 +13,4 @@ const Help = () => {
   );
 }
 
-export default Help;
+export default Home;
