@@ -11,3 +11,13 @@ export type TicketProps = {
     updatedAt: string,
     status: "OPEN" | "IN PROGRESS" | "RESOLVED" | "CLOSED"
 }
+
+export interface TicketObj {
+    id: number,
+    name: string,
+    email: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    status: "OPEN" | "IN PROGRESS" | "RESOLVED" | "CLOSED"
+}
