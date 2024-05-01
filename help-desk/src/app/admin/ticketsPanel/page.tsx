@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cookies } from 'next/headers';
 import Ticket from '@/components/Ticket';
+import NavBar from '@/components/NavBar';
 
 const TicketsPanel: React.FC = async () => {
     const cookieStore = cookies();
@@ -32,6 +33,7 @@ const TicketsPanel: React.FC = async () => {
 
     return (
         <main>
+            <NavBar />
             <h1> Tickets Panel </h1>
             {tickets}
         </main>
