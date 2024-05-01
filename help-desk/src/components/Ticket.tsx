@@ -29,21 +29,46 @@ const Ticket: React.FC<TicketProps> = ({ id, name, email, description, createdAt
     }
 
     return (
-        <main>
-            <h1> Ticket: {id} </h1>
-            <h2> Name: {name} </h2>
-            <h2> Email: {email} </h2>
-            <p> Description: {description} </p>
-            <p> Status: {status} </p>
-            <p> Created At: {createdAt} </p>
-            <p> Updated At: {updatedAt} </p>
-            <label> Update Status: </label>
-            <select id={`ticket${id}`} onChange={updateStatus}>
-                <option value="OPEN"> OPEN </option>
-                <option value="IN PROGRESS"> IN PROGRESS </option>
-                <option value="RESOLVED"> RESOLVED </option>
-                <option value="CLOSED"> CLOSED </option>
-            </select>
+        <main className="flex flex-col mt-10 items-center">
+            <section className="flex flex-row w-max p-4 rounded-lg border-black border-2 border-solid">
+                <label className="w-40"> 
+                    <b> Ticket: </b>
+                    <p>{id}</p> 
+                </label>
+                <label className="w-40"> 
+                    <b> Name: </b> 
+                    <p>{name}</p>
+                </label>
+                <label className="w-72"> 
+                    <b> Email: </b> 
+                    <p>{email}</p>
+                </label>
+                <label className="w-80 overflow-scroll mr-12"> 
+                    <b> Description: </b>
+                    <p>{description}</p> 
+                </label>
+                <label className="w-40"> 
+                    <b> Status: </b> 
+                    <p>{status}</p>
+                </label>
+                <label className="w-40"> 
+                    <b> Created At: </b> 
+                    <p>{createdAt.slice(0, 10)}</p> 
+                </label>
+                <label> 
+                    <b> Updated At: </b> 
+                    <p>{updatedAt.slice(0, 10)}</p> 
+                </label>
+            </section>
+            <label className="mt-4"> 
+                Update Status: 
+                <select id={`ticket${id}`} onChange={updateStatus} className="ml-4">
+                    <option value="OPEN"> OPEN </option>
+                    <option value="IN PROGRESS"> IN PROGRESS </option>
+                    <option value="RESOLVED"> RESOLVED </option>
+                    <option value="CLOSED"> CLOSED </option>
+                </select>
+            </label>
             <ResponseForm email={email}/>
         </main>
     );
