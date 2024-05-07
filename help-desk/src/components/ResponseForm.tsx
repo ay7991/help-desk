@@ -1,24 +1,25 @@
 'use client'
 import * as React from 'react';
 import { ResponseFormProps } from '@/lib/types';
+import Notification from './Notification';
 
 const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
     const [sender, setSender] = React.useState('');
     const [response, setResponse] = React.useState('');
 
+    const [showNotif, setShowNotif] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
+    const resetForm = (): void => {
+        setSender('');
+        setResponse('');
+    }
+
     const submitResponse = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (sender === '') {
-            alert('Do not leave "From" empty');
-            throw new Error("From field empty");
-        }
-        if (response === '') {
-            alert('Do not leave "Response" empty');
-            throw new Error("Response field empty");
-        }
-
-        return console.log(`Would normally send an email to ${email} or the proper recipient with 
-        the body containing ${sender} and ${response}`);
+        setShowNotif(true);
+        resetForm();
+        setMessage('Successfully Sent Your Response!');
     }
 
     return (
@@ -32,6 +33,7 @@ const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
                     value={sender}
                     onChange={e => setSender(e.target.value)}
                     className="w-96 ml-2"
+                    required
                 />
             </label>
             <label className="flex flex-col">
@@ -41,9 +43,11 @@ const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
                     name='response' 
                     value={response}
                     onChange={e => setResponse(e.target.value)}
+                    required
                 />
             </label>
             <button className="mt-2" type="submit"> Submit </button>
+            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/> }
         </form>
     ); 
 }
