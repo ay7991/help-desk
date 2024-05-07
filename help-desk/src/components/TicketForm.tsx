@@ -1,10 +1,20 @@
 'use client'
 import * as React from 'react';
+import Notification from './Notification';
 
 const TicketForm = () => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [description, setDescription] = React.useState('');
+
+    const [showNotif, setShowNotif] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
+    const resetForm = (): void => {
+        setName('');
+        setEmail('');
+        setDescription('');
+    }
 
     const postTicket = async (): Promise<void> => {
         try {
@@ -35,7 +45,9 @@ const TicketForm = () => {
                 })
             });
             if (post.ok) {
-                alert('Ticket successfully submitted');
+                setShowNotif(true);
+                setMessage('Ticket Successfully Submitted!');
+                resetForm();
             }
         } catch (error) {
             alert('Failed to submit ticket');
@@ -83,6 +95,7 @@ const TicketForm = () => {
                 />
             </label>
             <button type="submit"> Submit </button>
+            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/>}
         </form>
     );
 }
