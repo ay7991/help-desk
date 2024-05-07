@@ -1,3 +1,5 @@
+import { SnackbarOrigin } from "@mui/material";
+
 export type ResponseFormProps = {
     email: string
 }
@@ -20,4 +22,9 @@ export interface TicketObj {
     createdAt: string,
     updatedAt: string,
     status: "OPEN" | "IN PROGRESS" | "RESOLVED" | "CLOSED"
+}
+
+export interface NotificationProps {
+    message: string,
+    onClose: () => void
 }
