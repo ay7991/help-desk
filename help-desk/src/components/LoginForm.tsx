@@ -87,7 +87,7 @@ const LoginForm: React.FC = () => {
                 </label>
                 <button type="submit"> Login </button>
             </form>
-            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/>}
+            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/> }
         </>
     );
 }
