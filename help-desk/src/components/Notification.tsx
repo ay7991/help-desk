@@ -1,11 +1,7 @@
 import * as React from 'react';
 import * as MUI from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
-interface NotificationProps {
-    message: string,
-    onClose: () => void
-}
+import { NotificationProps } from '@/lib/types';
 
 const Notification: React.FC<NotificationProps> = ({ message, onClose }) => {
     const handleClose = () => {
@@ -19,7 +15,7 @@ const Notification: React.FC<NotificationProps> = ({ message, onClose }) => {
             onClose={handleClose}
             autoHideDuration={6000}
             message={message}
-            key="loginNotification"
+            key="notification"
             action={
             <MUI.IconButton
                 aria-label="close"
