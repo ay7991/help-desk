@@ -8,12 +8,10 @@ import TableRow from '@mui/material/TableRow';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import StatusMenu from './StatusMenu';
 import { TicketTableProps } from '@/lib/types';
 
 const tableTitles = ['Ticket ID', 'Name', 'Email', 'Description', 'Created At', 'Updated At', 'Status'];
-const statuses = ['OPEN', 'IN PROGRESS', 'RESOLVED', 'CLOSED'];
 
 const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
 
@@ -28,8 +26,8 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tickets.map((ticket) => 
-                        <TableRow key={ticket.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    {tickets.map((ticket, index) => 
+                        <TableRow key={ticket.name + index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                             <TableCell>{ticket.id}</TableCell>
                             <TableCell>{ticket.name}</TableCell>
                             <TableCell>{ticket.email}</TableCell>
@@ -37,8 +35,7 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                             <TableCell>{ticket.createdAt.slice(0, 10)}</TableCell>
                             <TableCell>{ticket.updatedAt.slice(0, 10)}</TableCell>
                             <TableCell>
-                                <Menu >
-                                </Menu>
+                                <StatusMenu currStatus={ticket.status} currID={ticket.id} />
                             </TableCell>
                         </TableRow>
                     )}
