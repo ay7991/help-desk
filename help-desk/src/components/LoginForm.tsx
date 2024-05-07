@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import Notification from './Notification';
 
 const LoginForm: React.FC = () => {
     const router = useRouter();
@@ -11,21 +12,6 @@ const LoginForm: React.FC = () => {
 
     const postAdmin = async (): Promise<void> => {
         try {
-            if (email === '') {
-                alert('Do not leave "Email" empty');
-                throw new Error("Email field empty");
-            }
-
-            if (password === '') {
-                alert('Do not leave "Password" empty');
-                throw new Error("Password field empty");
-            }
-
-            if (adminKey === '') {
-                alert('Do not leave "Admin Key" empty');
-                throw new Error("Admin Key field empty");
-            }
-
             const post = await fetch('/api/users', {
                 method: 'POST',
                 headers: {
@@ -57,42 +43,47 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-        <form className="flex flex-col w-80" onSubmit={checkLogin}>
-            <label className="flex flex-col">
-                Email
-                <input 
-                    className="border-solid border-black border-2 mb-4 pl-1 h-8" 
-                    type="email" 
-                    placeholder="Email" 
-                    name="email"
-                    value={email} 
-                    onChange={e => setEmail(e.target.value)}
-                />
-            </label>
-            <label className="flex flex-col">
-                Password
-                <input 
-                    className="border-solid border-black border-2 mb-4 pl-1 h-8" 
-                    type="password" 
-                    placeholder="Password" 
-                    name="password" 
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </label>
-            <label className="flex flex-col">
-                Admin Key
-                <input 
-                    className="border-solid border-black border-2 mb-4 pl-1 h-8" 
-                    type="text" 
-                    placeholder="Admin Key" 
-                    name="adminKey"
-                    value={adminKey}
-                    onChange={e => setAdminKey(e.target.value)} 
-                />
-            </label>
-            <button type="submit"> Login </button>
-        </form>
+        <>
+            <form className="flex flex-col w-80" onSubmit={checkLogin}>
+                <label className="flex flex-col">
+                    Email
+                    <input 
+                        className={`border-solid border-black border-2 mb-4 pl-1 h-8`} 
+                        type="email" 
+                        placeholder="Email" 
+                        name="email"
+                        value={email} 
+                        onChange={e => setEmail(e.target.value)}
+                        required
+                    />
+                </label>
+                <label className="flex flex-col">
+                    Password
+                    <input 
+                        className="border-solid border-black border-2 mb-4 pl-1 h-8" 
+                        type="password" 
+                        placeholder="Password" 
+                        name="password" 
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        required
+                    />
+                </label>
+                <label className="flex flex-col">
+                    Admin Key
+                    <input 
+                        className="border-solid border-black border-2 mb-4 pl-1 h-8" 
+                        type="text" 
+                        placeholder="Admin Key" 
+                        name="adminKey"
+                        value={adminKey}
+                        onChange={e => setAdminKey(e.target.value)}
+                        required 
+                    />
+                </label>
+                <button type="submit"> Login </button>
+            </form>
+        </>
     );
 }
 
