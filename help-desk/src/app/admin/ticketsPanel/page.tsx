@@ -4,11 +4,14 @@ import Cookies from 'js-cookie';
 import Ticket from '@/components/Ticket';
 import NavBar from '@/components/NavBar';
 import { TicketObj } from '@/lib/types';
+import Notification from '@/components/Notification';
 
 const TicketsPanel: React.FC = () => {
     const [tickets, setTickets] = React.useState<TicketObj[]>([]);
     const [loading, setLoading] = React.useState(true);
     const [accessDenied, setAccessDenied] = React.useState(true);
+
+    const [showNotif, setShowNotif] = React.useState(true);
 
     const fetchTickets = async (): Promise<void> => {
         try {
@@ -48,6 +51,7 @@ const TicketsPanel: React.FC = () => {
 
     return (
         <main>
+            { showNotif && <Notification message={'Successful Login'} onClose={() => setShowNotif(false)}/>}
             <NavBar />
             <h1 className="flex justify-center text-3xl mt-10"> Tickets Panel </h1>
             {tickets.length > 0 ? (
