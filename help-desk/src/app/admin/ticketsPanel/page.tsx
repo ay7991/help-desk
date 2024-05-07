@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Cookies from 'js-cookie';
 import Ticket from '@/components/Ticket';
+import TicketTable from '@/components/TicketTable';
 import NavBar from '@/components/NavBar';
 import { TicketObj } from '@/lib/types';
 import Notification from '@/components/Notification';
@@ -15,7 +16,7 @@ const TicketsPanel: React.FC = () => {
 
     const fetchTickets = async (): Promise<void> => {
         try {
-            const response = await fetch('https://help-desk-eight-gamma.vercel.app/api/tickets');
+            const response = await fetch('http://localhost:3000/api/tickets');
             if (!response.ok) {
                 throw new Error('Failed to fetch tickets');
             } else {
@@ -55,18 +56,7 @@ const TicketsPanel: React.FC = () => {
             <NavBar />
             <h1 className="flex justify-center text-3xl mt-10"> Tickets Panel </h1>
             {tickets.length > 0 ? (
-                tickets.map((ticket, index) => (
-                    <Ticket
-                        key={`ticket${index}`}
-                        id={ticket.id}
-                        name={ticket.name}
-                        email={ticket.email}
-                        description={ticket.description}
-                        createdAt={ticket.createdAt}
-                        updatedAt={ticket.updatedAt}
-                        status={ticket.status}
-                    />
-                ))
+                <TicketTable tickets={tickets} />
             ) : (
                 <p>No tickets available.</p>
             )}
