@@ -18,21 +18,6 @@ const TicketForm = () => {
 
     const postTicket = async (): Promise<void> => {
         try {
-            if (name === '') {
-                alert('Do not leave "Name" empty');
-                throw new Error("Name field empty");
-            }
-
-            if (email === '') {
-                alert('Do not leave "Email" empty');
-                throw new Error("Email field empty");
-            }
-
-            if (description === '') {
-                alert('Do not leave "Description" empty');
-                throw new Error("Description field empty");
-            }
-
             const post = await fetch('/api/tickets', {
                 method: 'POST',
                 headers: {
@@ -71,6 +56,7 @@ const TicketForm = () => {
                     name='name' 
                     value={name}
                     onChange={e => setName(e.target.value)}
+                    required
                 />
             </label> 
             <label className="flex flex-col">
@@ -82,6 +68,7 @@ const TicketForm = () => {
                     name='email' 
                     value={email}
                     onChange={e => setEmail(e.target.value)}
+                    required
                 />
             </label>
             <label className="flex flex-col"> 
@@ -92,6 +79,7 @@ const TicketForm = () => {
                     name='description'
                     value={description}
                     onChange={e => setDescription(e.target.value)} 
+                    required
                 />
             </label>
             <button type="submit"> Submit </button>
