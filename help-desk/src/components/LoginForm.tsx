@@ -10,6 +10,9 @@ const LoginForm: React.FC = () => {
     const [password, setPassword] = React.useState('');
     const [adminKey, setAdminKey] = React.useState('');
 
+    const [showNotif, setShowNotif] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+
     const postAdmin = async (): Promise<void> => {
         try {
             const post = await fetch('/api/users', {
@@ -29,7 +32,8 @@ const LoginForm: React.FC = () => {
                 router.push('/admin/ticketsPanel');
             } else {
                 const error = await post.json();
-                alert(error.error);
+                setShowNotif(true);
+                setMessage(error.error);
                 throw new Error(error.error);
             }
         } catch (error) {
@@ -83,6 +87,7 @@ const LoginForm: React.FC = () => {
                 </label>
                 <button type="submit"> Login </button>
             </form>
+            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/>}
         </>
     );
 }
