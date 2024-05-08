@@ -9,6 +9,7 @@ const TicketForm = () => {
 
     const [showNotif, setShowNotif] = React.useState(false);
     const [message, setMessage] = React.useState('');
+    const [color, setColor] = React.useState('');
 
     const resetForm = (): void => {
         setName('');
@@ -32,10 +33,20 @@ const TicketForm = () => {
             if (post.ok) {
                 setShowNotif(true);
                 setMessage('Ticket Successfully Submitted!');
+                setColor('teal');
+                console.log(color);
+                resetForm();
+            } else {
+                const failedTicket = await post.json();
+                setShowNotif(true);
+                setMessage(failedTicket.error);
+                setColor('red');
                 resetForm();
             }
         } catch (error) {
-            alert('Failed to submit ticket');
+            setShowNotif(true);
+            setMessage('Failed to submit ticket');
+            setColor('red');
             console.log(error);
         }
     }
@@ -46,45 +57,47 @@ const TicketForm = () => {
     }
 
     return (
-        <form className="flex flex-col w-96" onSubmit={submitTicket}>
-            <label className="flex flex-col"> 
-                Name 
-                <input 
-                    className="border-solid border-black border-2 mb-4 pl-1" 
-                    type='text' 
-                    placeholder='Name' 
-                    name='name' 
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    required
-                />
-            </label> 
-            <label className="flex flex-col">
-                Email
-                <input 
-                    className="border-solid border-black border-2 mb-4 pl-1" 
-                    type='email' 
-                    placeholder='Email' 
-                    name='email' 
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    required
-                />
-            </label>
-            <label className="flex flex-col"> 
-                Description 
-                <textarea 
-                    className="border-solid border-black border-2 mb-4 pl-1 h-36" 
-                    placeholder='Explain the problem' 
-                    name='description'
-                    value={description}
-                    onChange={e => setDescription(e.target.value)} 
-                    required
-                />
-            </label>
-            <button type="submit"> Submit </button>
-            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/>}
-        </form>
+        <>
+            <form className="flex flex-col w-96" onSubmit={submitTicket}>
+                <label className="flex flex-col"> 
+                    Name 
+                    <input 
+                        className="border-solid border-black border-2 mb-4 pl-1" 
+                        type='text' 
+                        placeholder='Name' 
+                        name='name' 
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        required
+                    />
+                </label> 
+                <label className="flex flex-col">
+                    Email
+                    <input 
+                        className="border-solid border-black border-2 mb-4 pl-1" 
+                        type='email' 
+                        placeholder='Email' 
+                        name='email' 
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        required
+                    />
+                </label>
+                <label className="flex flex-col"> 
+                    Description 
+                    <textarea 
+                        className="border-solid border-black border-2 mb-4 pl-1 h-36" 
+                        placeholder='Explain the problem' 
+                        name='description'
+                        value={description}
+                        onChange={e => setDescription(e.target.value)} 
+                        required
+                    />
+                </label>
+                <button type="submit"> Submit </button>
+            </form>
+            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color} />}
+        </>
     );
 }
 
