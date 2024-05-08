@@ -2,14 +2,14 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-type StatusProps = {
-  currStatus: string,
-  currID: number
-}
+import { StatusProps } from '@/lib/types';
+import Notification from './Notification';
 
 const StatusMenu: React.FC<StatusProps> = ({ currStatus, currID }) => {
   const [status, setStatus] = React.useState(currStatus);
+  const [showNotif, setShowNotif] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+  const [color, setColor] = React.useState('');
 
   React.useEffect(() => {
     const patchFetch = async (): Promise<void> => {
@@ -26,10 +26,15 @@ const StatusMenu: React.FC<StatusProps> = ({ currStatus, currID }) => {
         });
   
         if (statusUpdate.ok) {
-            alert('Ticket successfully updated!');
+            setShowNotif(true);
+            setMessage('Status Successfully Updated!');
+            setColor('teal');
+            console.log(color);
         } else {
             const response = await statusUpdate.json();
-            alert(response.error);
+            setShowNotif(true);
+            setMessage(response.error);
+            setColor('red');
             throw new Error(response.error);
         }
       } catch (error) {
@@ -37,7 +42,7 @@ const StatusMenu: React.FC<StatusProps> = ({ currStatus, currID }) => {
       }
     }
 
-    if (status !== currStatus) { // Only run patchFetch if status has actually changed
+    if (status !== currStatus) { 
       patchFetch();
     }
   }, [status, currID, currStatus]);
@@ -57,6 +62,7 @@ const StatusMenu: React.FC<StatusProps> = ({ currStatus, currID }) => {
           <MenuItem value={'CLOSED'}> CLOSED </MenuItem>
         </Select>
       </FormControl>
+      { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color} />}
     </>
   );
 }
