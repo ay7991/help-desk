@@ -3,13 +3,18 @@ import * as MUI from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { NotificationProps } from '@/lib/types';
 
-const Notification: React.FC<NotificationProps> = ({ message, onClose }) => {
+const Notification: React.FC<NotificationProps> = ({ message, onClose, color }) => {
     const handleClose = () => {
         onClose();
     }
 
     return (
-        <MUI.Snackbar 
+        <MUI.Snackbar
+            sx={{
+                '& .css-1eqdgzv-MuiPaper-root-MuiSnackbarContent-root': {
+                    backgroundColor: color
+                }
+            }}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             open={true}
             onClose={handleClose}
