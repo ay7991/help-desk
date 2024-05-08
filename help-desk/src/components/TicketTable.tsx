@@ -11,7 +11,7 @@ import { TablePagination } from '@mui/material';
 import TablePaginationControls from './TablePaginationControls';
 import { TicketTableProps } from '@/lib/types';
 
-const tableTitles = ['Ticket ID', 'Name', 'Email', 'Description', 'Created At', 'Updated At', 'Status'];
+const tableTitles: string[] = ['Ticket ID', 'Name', 'Email', 'Description', 'Created At', 'Updated At', 'Status'];
 
 const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
     const [page, setPage] = React.useState(0);
@@ -62,29 +62,29 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                         </TableRow>
                     )}
                 </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                            colSpan={3}
+                            count={tickets.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            slotProps={{
+                                select: {
+                                inputProps: {
+                                    'aria-label': 'rows per page',
+                                },
+                                native: true,
+                                },
+                            }}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            ActionsComponent={TablePaginationControls}
+                        />
+                    </TableRow>
+                </TableFooter>
             </Table>
-            <TableFooter>
-                <TableRow>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        colSpan={3}
-                        count={tickets.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        slotProps={{
-                            select: {
-                            inputProps: {
-                                'aria-label': 'rows per page',
-                            },
-                            native: true,
-                            },
-                        }}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                        ActionsComponent={TablePaginationControls}
-                    />
-                </TableRow>
-            </TableFooter>
         </TableContainer>
     );
 }
