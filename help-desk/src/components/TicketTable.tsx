@@ -45,12 +45,12 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                 {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
                 .map((ticket, index) => 
                         <TableRow key={ticket.name + index} >
-                            <TableCell sx={{ width: 100 }}>{ticket.id}</TableCell>
-                            <TableCell sx={{ width: 200 }}>{ticket.name}</TableCell>
-                            <TableCell sx={{ width: 300 }}>{ticket.email}</TableCell>
+                            <TableCell>{ticket.id}</TableCell>
+                            <TableCell>{ticket.name}</TableCell>
+                            <TableCell>{ticket.email}</TableCell>
                             <TableCell sx={{ maxWidth: 300, overflow: 'auto' }}>{ticket.description}</TableCell>
-                            <TableCell sx={{ width: 200 }}>{ticket.createdAt.slice(0, 10)}</TableCell>
-                            <TableCell sx={{ width: 200 }}>{ticket.updatedAt.slice(0, 10)}</TableCell>
+                            <TableCell>{ticket.createdAt.slice(0, 10)}</TableCell>
+                            <TableCell>{ticket.updatedAt.slice(0, 10)}</TableCell>
                             <TableCell>
                                 <StatusMenu currStatus={ticket.status} currID={ticket.id} />
                             </TableCell>
