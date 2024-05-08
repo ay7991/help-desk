@@ -23,6 +23,10 @@ export async function POST(req: Request) {
                 status: "OPEN"
             }
         });
+        if (!ticket) {
+            return NextResponse.json({ error: 'Unable to submit ticket' }, { status: 403 });
+        }
+
         return NextResponse.json(ticket, {status: 201});
     } catch (error) {
         return NextResponse.json({ error: 'Internal Server Error'}, { status: 500 });
