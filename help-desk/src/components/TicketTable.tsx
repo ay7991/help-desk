@@ -32,8 +32,8 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
     };
 
     return (
-        <TableContainer>
-            <Table sx={{ minWidth: 650 }} aria-label='ticket data table'>
+        <TableContainer className="flex flex-col items-center mt-10">
+            <Table sx={{ minWidth: '40vw', maxWidth: '90vw', tableLayout: 'fixed' }} aria-label='ticket data table'>
                 <TableHead>
                     <TableRow>
                         {tableTitles.map((title, index) => 
@@ -44,13 +44,13 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                 <TableBody>
                 {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
                 .map((ticket, index) => 
-                        <TableRow key={ticket.name + index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                            <TableCell>{ticket.id}</TableCell>
-                            <TableCell>{ticket.name}</TableCell>
-                            <TableCell>{ticket.email}</TableCell>
-                            <TableCell>{ticket.description}</TableCell>
-                            <TableCell>{ticket.createdAt.slice(0, 10)}</TableCell>
-                            <TableCell>{ticket.updatedAt.slice(0, 10)}</TableCell>
+                        <TableRow key={ticket.name + index} >
+                            <TableCell sx={{ width: 100 }}>{ticket.id}</TableCell>
+                            <TableCell sx={{ width: 200 }}>{ticket.name}</TableCell>
+                            <TableCell sx={{ width: 300 }}>{ticket.email}</TableCell>
+                            <TableCell sx={{ maxWidth: 300, overflow: 'auto' }}>{ticket.description}</TableCell>
+                            <TableCell sx={{ width: 200 }}>{ticket.createdAt.slice(0, 10)}</TableCell>
+                            <TableCell sx={{ width: 200 }}>{ticket.updatedAt.slice(0, 10)}</TableCell>
                             <TableCell>
                                 <StatusMenu currStatus={ticket.status} currID={ticket.id} />
                             </TableCell>
@@ -65,6 +65,7 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                 <TableFooter>
                     <TableRow>
                         <TablePagination
+                            className="fixed"
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
                             count={tickets.length}
