@@ -45,7 +45,7 @@ const StatusMenu: React.FC<StatusProps> = ({ currStatus, currID }) => {
     if (status !== currStatus) { 
       patchFetch();
     }
-  }, [status, currID, currStatus]);
+  }, [status, currID, currStatus, color]);
 
 
   const updateStatus = (event: SelectChangeEvent) => {
