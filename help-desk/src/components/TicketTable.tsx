@@ -9,11 +9,16 @@ import TableFooter from '@mui/material/TableFooter';
 import StatusMenu from './StatusMenu';
 import { TablePagination } from '@mui/material';
 import TablePaginationControls from './TablePaginationControls';
-import { TicketTableProps } from '@/lib/types';
+import { TicketTableProps, TicketObj } from '@/lib/types';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useTicket } from '@/contexts/TicketContext';
 
 const tableTitles: string[] = ['Ticket ID', 'Name', 'Email', 'Description', 'Created At', 'Updated At', 'Status'];
 
 const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
+    const { setCurrentTicket } = useTicket();
+    const router = useRouter();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -31,6 +36,11 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
         setPage(0);
     };
 
+    const drillTicket = (ticket: TicketObj): void => {
+        setCurrentTicket(ticket);
+        router.push(`/admin/ticketResponse/${ticket.id}`);
+    }
+
     return (
         <TableContainer className="flex flex-col items-center mt-10">
             <Table sx={{ minWidth: '40vw', maxWidth: '90vw', tableLayout: 'fixed' }} aria-label='ticket data table'>
@@ -43,8 +53,8 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                 </TableHead>
                 <TableBody>
                 {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
-                .map((ticket, index) => 
-                        <TableRow key={ticket.name + index} >
+                .map((ticket, index) =>
+                        <TableRow key={ticket.name + index} onClick={() => drillTicket(ticket)}>
                             <TableCell>{ticket.id}</TableCell>
                             <TableCell>{ticket.name}</TableCell>
                             <TableCell>{ticket.email}</TableCell>
