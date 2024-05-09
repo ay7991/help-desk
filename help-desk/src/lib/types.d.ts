@@ -45,4 +45,9 @@ export interface TablePaginationProps {
 type StatusProps = {
     currStatus: string,
     currID: number
-  }
+}
+
+interface TicketContextType {
+    currentTicket: TicketProps | null;
+    setCurrentTicket: (ticket: TicketProps) => void;
+}
