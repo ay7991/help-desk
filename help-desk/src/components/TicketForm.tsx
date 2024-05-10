@@ -57,12 +57,12 @@ const TicketForm = () => {
     }
 
     return (
-        <main>
-            <form id="ticketForm" onSubmit={submitTicket}>
+        <main className="formMain">
+            <form className="flex flex-col justify-center" onSubmit={submitTicket}>
                 <label className="flex flex-col text-white text-lg"> 
                     Name 
                     <input 
-                        className="ticketInput" 
+                        className="input" 
                         type='text' 
                         placeholder='Name' 
                         name='name' 
@@ -74,7 +74,7 @@ const TicketForm = () => {
                 <label className="flex flex-col text-white text-lg">
                     Email
                     <input 
-                        className="ticketInput" 
+                        className="input" 
                         type='email' 
                         placeholder='Email' 
                         name='email' 
