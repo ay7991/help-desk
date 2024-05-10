@@ -1,6 +1,7 @@
 'use client'
 import * as React from 'react';
 import Notification from './Notification';
+import { postTicket, resetForm } from '../lib/utils/ticketForm';
 
 const TicketForm = () => {
     const [name, setName] = React.useState('');
@@ -11,50 +12,16 @@ const TicketForm = () => {
     const [message, setMessage] = React.useState('');
     const [color, setColor] = React.useState('');
 
-    const resetForm = (): void => {
-        setName('');
-        setEmail('');
-        setDescription('');
-    }
-
-    const postTicket = async (): Promise<void> => {
-        try {
-            const post = await fetch('/api/tickets', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    description: description
-                })
-            });
-            if (post.ok) {
-                setShowNotif(true);
-                setMessage('Ticket Successfully Submitted!');
-                setColor('teal');
-                console.log(color);
-                resetForm();
-            } else {
-                const failedTicket = await post.json();
-                setShowNotif(true);
-                setMessage(failedTicket.error);
-                setColor('red');
-                resetForm();
-            }
-        } catch (error) {
-            setShowNotif(true);
-            setMessage('Failed to submit ticket');
-            setColor('red');
-            console.log(error);
-        }
-    }
+    const setNotification = (show: boolean, message: string, color: string) => {
+        setShowNotif(show);
+        setMessage(message);
+        setColor(color);
+    };
 
     const submitTicket = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        postTicket();
-    }
+        await postTicket(name, email, description, setNotification, () => resetForm(setName, setEmail, setDescription));
+    };
 
     return (
         <main className="formMain">
@@ -86,11 +53,11 @@ const TicketForm = () => {
                 <label className="flex flex-col text-white text-lg"> 
                     Description 
                     <textarea 
-                        className="border-solid mb-4 pl-1 h-36 rounded-md" 
+                        className="border-solid mb-4 pl-1 h-36 rounded-md text-black" 
                         placeholder='Explain the problem' 
                         name='description'
                         value={description}
-                        onChange={e => setDescription(e.target.value)} 
+                        onChange={e => setDescription(e.target.value)}
                         required
                     />
                 </label>
