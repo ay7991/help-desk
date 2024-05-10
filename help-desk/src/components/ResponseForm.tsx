@@ -26,32 +26,36 @@ const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
     }
 
     return (
-        <form className="flex flex-col p-2 rounded-lg border-black border-2 border-solid w-auto mt-2" onSubmit={submitResponse}>
-            <label className="mb-2"> 
-                From: 
-                <input 
-                    type='text' 
-                    placeholder='Ex. Amy Yang - Senior Software Engineer' 
-                    name='from' 
-                    value={sender}
-                    onChange={e => setSender(e.target.value)}
-                    className="w-96 ml-2"
-                    required
-                />
-            </label>
-            <label className="flex flex-col">
-                Response:
-                <textarea 
-                    placeholder='Write your response here' 
-                    name='response' 
-                    value={response}
-                    onChange={e => setResponse(e.target.value)}
-                    required
-                />
-            </label>
-            <button className="mt-2" type="submit"> Submit </button>
+        <main id="responseFormMain">
+            <form id="formComponent" onSubmit={submitResponse}>
+                <label id="responseFrom"> 
+                    From: 
+                    <input 
+                        type='text' 
+                        placeholder='Ex. Amy Yang' 
+                        name='from' 
+                        value={sender}
+                        onChange={e => setSender(e.target.value)}
+                        className="w-96 ml-2 pl-2 rounded-md text-black"
+                        id="responseInput"
+                        required
+                    />
+                </label>
+                <label className="flex flex-col">
+                    Response:
+                    <textarea 
+                        placeholder='Write your response here' 
+                        name='response' 
+                        value={response}
+                        className='pl-2 rounded-md text-black h-20'
+                        onChange={e => setResponse(e.target.value)}
+                        required
+                    />
+                </label>
+                <button className="mt-2" type="submit"> Submit </button>
+            </form>
             { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color}/> }
-        </form>
+        </main>
     ); 
 }
 
