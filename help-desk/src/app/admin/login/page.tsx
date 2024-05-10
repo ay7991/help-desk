@@ -6,9 +6,11 @@ const Login: React.FC = () => {
     return (
         <main className="h-screen">
             <NavBar />
-            <section className="h-4/5 flex flex-col items-center justify-center">
-                <h1 className="mb-10 text-xl"> Admin Login </h1>
-                <LoginForm />
+            <section className="formSection">
+                <div className="formDiv">
+                    <h1 className="mb-8 text-3xl text-white"> Admin Login </h1>
+                    <LoginForm />
+                </div>
             </section>
         </main>
     );
