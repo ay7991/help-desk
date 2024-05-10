@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableFooter from '@mui/material/TableFooter';
 import StatusMenu from './StatusMenu';
-import { TablePagination } from '@mui/material';
+import { TablePagination, ThemeProvider, createTheme } from '@mui/material';
 import TablePaginationControls from './TablePaginationControls';
 import { TicketTableProps, TicketObj } from '@/lib/types';
 import { useRouter } from 'next/navigation';
@@ -42,62 +42,72 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
         router.push(`/admin/ticketResponse/${ticket.id}`);
     }
 
+    const tableTheme = createTheme({
+        typography: {
+            fontFamily: "Atkinson Hyperlegible",
+            fontSize: 18,
+        }
+    })
+
     return (
-        <TableContainer className="flex flex-col items-center mt-10">
-            <Table sx={{ minWidth: '40vw', maxWidth: '90vw', tableLayout: 'fixed' }} aria-label='ticket data table'>
-                <TableHead>
-                    <TableRow>
-                        {tableTitles.map((title, index) => 
-                            <TableCell key={`table-title-${index}`}> {title} </TableCell>
+        <ThemeProvider theme={tableTheme}>
+            <TableContainer id="tableContainer">
+                <Table id="tableContents" aria-label='ticket data table'>
+                    <TableHead>
+                        <TableRow>
+                            {tableTitles.map((title, index) => 
+                                <TableCell sx={{color: '#3B82F6'}} key={`table-title-${index}`}> {title} </TableCell>
+                            )}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
+                    .map((ticket, index) =>
+                            <TableRow key={ticket.name + index} onClick={() => drillTicket(ticket)}>
+                                <TableCell sx={{color: '#3B82F6'}}>{ticket.id}</TableCell>
+                                <TableCell sx={{color: '#3B82F6'}}>{ticket.name}</TableCell>
+                                <TableCell sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.email}</TableCell>
+                                <TableCell sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.description}</TableCell>
+                                <TableCell sx={{color: '#3B82F6'}}>{ticket.createdAt.slice(0, 10)}</TableCell>
+                                <TableCell sx={{color: '#3B82F6'}}>{ticket.updatedAt.slice(0, 10)}</TableCell>
+                                <TableCell>
+                                    <StatusMenu currStatus={ticket.status} currID={ticket.id} />
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
-                .map((ticket, index) =>
-                        <TableRow key={ticket.name + index} onClick={() => drillTicket(ticket)}>
-                            <TableCell>{ticket.id}</TableCell>
-                            <TableCell>{ticket.name}</TableCell>
-                            <TableCell>{ticket.email}</TableCell>
-                            <TableCell sx={{ maxWidth: 300, overflow: 'auto' }}>{ticket.description}</TableCell>
-                            <TableCell>{ticket.createdAt.slice(0, 10)}</TableCell>
-                            <TableCell>{ticket.updatedAt.slice(0, 10)}</TableCell>
-                            <TableCell>
-                                <StatusMenu currStatus={ticket.status} currID={ticket.id} />
-                            </TableCell>
+                        {emptyRows > 0 && (
+                            <TableRow style={{ height: 53 * emptyRows }}>
+                                <TableCell colSpan={6} />
+                            </TableRow>
+                        )}
+                    </TableBody>
+                    <TableFooter className="tableHeadBody">
+                        <TableRow>
+                            <TablePagination
+                                className="fixed"
+                                sx={{color: '#3B82F6'}}
+                                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                colSpan={3}
+                                count={tickets.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                slotProps={{
+                                    select: {
+                                    inputProps: {
+                                        'aria-label': 'rows per page',
+                                    },
+                                    native: true,
+                                    },
+                                }}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationControls}
+                            />
                         </TableRow>
-                    )}
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
-                        </TableRow>
-                    )}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            className="fixed"
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            colSpan={3}
-                            count={tickets.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            slotProps={{
-                                select: {
-                                inputProps: {
-                                    'aria-label': 'rows per page',
-                                },
-                                native: true,
-                                },
-                            }}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationControls}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>
-        </TableContainer>
+                    </TableFooter>
+                </Table>
+            </TableContainer>
+        </ThemeProvider>
     );
 }
 
