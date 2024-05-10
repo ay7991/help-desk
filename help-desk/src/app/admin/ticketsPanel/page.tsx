@@ -50,7 +50,11 @@ const TicketsPanel: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex flex-col items-center justify-center w-screen h-screen">
+                <h1 className="text-3xl">Loading...</h1>
+            </div>
+        );
     }
 
     if (accessDenied) {
@@ -60,13 +64,15 @@ const TicketsPanel: React.FC = () => {
     return (
         <main>
             <NavBar />
-            <h1 className="flex justify-center text-3xl mt-10"> Tickets Panel </h1>
-            {tickets.length > 0 ? (
-                <TicketTable tickets={tickets} />
-            ) : (
-                <p>No tickets available.</p>
-            )}
-            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color}/> }
+            <h1 id="panelTitle"> Tickets Panel </h1>
+            <div id="ticketPanel">
+                {tickets.length > 0 ? (
+                    <TicketTable tickets={tickets} />
+                ) : (
+                    <p>No tickets available.</p>
+                )}
+                { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color}/> }
+            </div>
         </main>
     );
 };
