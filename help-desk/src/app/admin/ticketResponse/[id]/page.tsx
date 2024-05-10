@@ -1,6 +1,6 @@
+'use client'
 import * as React from 'react'; 
-import ResponseForm from '@/components/ResponseForm';
-import { TicketProps } from '@/lib/types';
+import ResponseForm from '@/components/ResponseForm'; 
 import { useTicket } from '@/contexts/TicketContext';
 
 const TicketResponsePage: React.FC = () => {
@@ -14,6 +14,7 @@ const TicketResponsePage: React.FC = () => {
       <p>{currentTicket.name}</p>
       <p>{currentTicket.email}</p>
       <p>{currentTicket.description}</p>
+      <ResponseForm email={currentTicket.email}/>
     </div>
   );
 };
