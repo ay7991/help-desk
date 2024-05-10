@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +12,6 @@ import { TablePagination } from '@mui/material';
 import TablePaginationControls from './TablePaginationControls';
 import { TicketTableProps, TicketObj } from '@/lib/types';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useTicket } from '@/contexts/TicketContext';
 
 const tableTitles: string[] = ['Ticket ID', 'Name', 'Email', 'Description', 'Created At', 'Updated At', 'Status'];
@@ -37,6 +37,7 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
     };
 
     const drillTicket = (ticket: TicketObj): void => {
+        console.log(ticket);
         setCurrentTicket(ticket);
         router.push(`/admin/ticketResponse/${ticket.id}`);
     }
