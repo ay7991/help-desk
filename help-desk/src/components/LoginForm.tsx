@@ -49,12 +49,12 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-        <>
-            <form className="flex flex-col w-80" onSubmit={checkLogin}>
-                <label className="flex flex-col">
+        <main className="formMain">
+            <form className="flex flex-col justify-center" onSubmit={checkLogin}>
+                <label className="flex flex-col text-white text-lg">
                     Email
                     <input 
-                        className={`border-solid border-black border-2 mb-4 pl-1 h-8`} 
+                        className="input" 
                         type="email" 
                         placeholder="Email" 
                         name="email"
@@ -63,10 +63,10 @@ const LoginForm: React.FC = () => {
                         required
                     />
                 </label>
-                <label className="flex flex-col">
+                <label className="flex flex-col text-white text-lg">
                     Password
                     <input 
-                        className="border-solid border-black border-2 mb-4 pl-1 h-8" 
+                        className="input"
                         type="password" 
                         placeholder="Password" 
                         name="password" 
@@ -75,10 +75,10 @@ const LoginForm: React.FC = () => {
                         required
                     />
                 </label>
-                <label className="flex flex-col">
+                <label className="flex flex-col text-white text-lg">
                     Admin Key
                     <input 
-                        className="border-solid border-black border-2 mb-4 pl-1 h-8" 
+                        className="input" 
                         type="text" 
                         placeholder="Admin Key" 
                         name="adminKey"
@@ -87,10 +87,10 @@ const LoginForm: React.FC = () => {
                         required 
                     />
                 </label>
-                <button type="submit"> Login </button>
+                <button type="submit" className="text-white text-xl"> Login </button>
             </form>
             { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color} /> }
-        </>
+        </main>
     );
 }
 
