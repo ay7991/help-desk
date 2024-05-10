@@ -1,8 +1,8 @@
 'use client'
 import * as React from 'react';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import Notification from './Notification';
+import { postAdmin } from '@/lib/utils/login';
 
 const LoginForm: React.FC = () => {
     const router = useRouter();
@@ -14,38 +14,15 @@ const LoginForm: React.FC = () => {
     const [message, setMessage] = React.useState('');
     const [color, setColor] = React.useState('');
 
-    const postAdmin = async (): Promise<void> => {
-        try {
-            const post = await fetch('/api/users', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                    adminKey: adminKey
-                })
-            })
-            
-            if (post.ok) {
-                Cookies.set('adminCookie', 'adminCookie')
-                router.push('/admin/ticketsPanel');
-            } else {
-                const error = await post.json();
-                setShowNotif(true);
-                setMessage(error.error);
-                setColor('red');
-                throw new Error(error.error);
-            }
-        } catch (error) {
-            console.log(error);
-        }
+    const setNotification = (show: boolean, message: string, color: string) => {
+        setShowNotif(show);
+        setMessage(message);
+        setColor(color);
     }
 
     const checkLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        postAdmin();
+        await postAdmin(email, password, adminKey, router, setNotification);
     }
 
     return (
