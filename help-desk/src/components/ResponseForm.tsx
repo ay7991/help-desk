@@ -10,6 +10,8 @@ const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
     const [showNotif, setShowNotif] = React.useState(false);
     const [message, setMessage] = React.useState('');
 
+    const [color, setColor] = React.useState('');
+
     const resetForm = (): void => {
         setSender('');
         setResponse('');
@@ -19,7 +21,8 @@ const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
         e.preventDefault();
         setShowNotif(true);
         resetForm();
-        setMessage('Successfully Sent Your Response!');
+        setMessage(`Successfully Sent Your Response to ${email}!`);
+        setColor('teal');
     }
 
     return (
@@ -47,7 +50,7 @@ const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
                 />
             </label>
             <button className="mt-2" type="submit"> Submit </button>
-            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)}/> }
+            { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color}/> }
         </form>
     ); 
 }
