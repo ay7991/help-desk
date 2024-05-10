@@ -59,10 +59,10 @@ const TicketForm = () => {
     return (
         <>
             <form className="flex flex-col w-96" onSubmit={submitTicket}>
-                <label className="flex flex-col"> 
+                <label className="flex flex-col text-white text-lg"> 
                     Name 
                     <input 
-                        className="border-solid border-black border-2 mb-4 pl-1" 
+                        className="border-solid mb-4 pl-1 rounded-md" 
                         type='text' 
                         placeholder='Name' 
                         name='name' 
@@ -71,10 +71,10 @@ const TicketForm = () => {
                         required
                     />
                 </label> 
-                <label className="flex flex-col">
+                <label className="flex flex-col text-white text-lg">
                     Email
                     <input 
-                        className="border-solid border-black border-2 mb-4 pl-1" 
+                        className="border-solid mb-4 pl-1 rounded-md" 
                         type='email' 
                         placeholder='Email' 
                         name='email' 
@@ -83,10 +83,10 @@ const TicketForm = () => {
                         required
                     />
                 </label>
-                <label className="flex flex-col"> 
+                <label className="flex flex-col text-white text-lg"> 
                     Description 
                     <textarea 
-                        className="border-solid border-black border-2 mb-4 pl-1 h-36" 
+                        className="border-solid mb-4 pl-1 h-36 rounded-md" 
                         placeholder='Explain the problem' 
                         name='description'
                         value={description}
@@ -94,7 +94,7 @@ const TicketForm = () => {
                         required
                     />
                 </label>
-                <button type="submit"> Submit </button>
+                <button className="text-white text-xl" type="submit"> Submit </button>
             </form>
             { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color} />}
         </>
