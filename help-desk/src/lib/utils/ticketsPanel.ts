@@ -37,20 +37,44 @@ export const fetchTickets = async (
   }
   
 export const useFetchTickets = (
-setTickets: (tickets: TicketObj[]) => void,
-setLoading: (loading: boolean) => void,
-setAccessDenied: (denied: boolean) => void,
-setNotification: (show: boolean, message: string, color: string) => void
-) => {
-React.useEffect(() => {
-    const adminCookie = Cookies.get('adminCookie');
-    if (!adminCookie) {
-    console.log("No admin cookie found, access denied.");
-    setAccessDenied(true);
-    setLoading(false);
-    } else {
-    setAccessDenied(false);
-    fetchTickets(setTickets, setLoading, setNotification);
-    }
-}, [setTickets, setLoading, setAccessDenied, setNotification]);
+    setTickets: (tickets: TicketObj[]) => void,
+    setLoading: (loading: boolean) => void,
+    setAccessDenied: (denied: boolean) => void,
+    setNotification: (show: boolean, message: string, color: string) => void
+    ) => {
+    React.useEffect(() => {
+        const adminCookie = Cookies.get('adminCookie');
+        if (!adminCookie) {
+        console.log("No admin cookie found, access denied.");
+        setAccessDenied(true);
+        setLoading(false);
+        } else {
+        setAccessDenied(false);
+        fetchTickets(setTickets, setLoading, setNotification);
+        }
+    }, [setTickets, setLoading, setAccessDenied, setNotification]);
 }
+
+export const handleChangePage = (
+    setPage: (page: number) => void
+) => (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    setPage(newPage);
+};
+
+export const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    setPage: (page: number) => void,
+    setRowsPerPage: (rowsPerPage: number) => void
+) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+};
+
+export const drillTicket = (
+    ticket: TicketObj,
+    setCurrentTicket: (ticket: TicketObj) => void,
+    router: any
+) => {
+    setCurrentTicket(ticket);
+    router.push(`/admin/ticketResponse/${ticket.id}`);
+};

@@ -10,10 +10,11 @@ import TableFooter from '@mui/material/TableFooter';
 import StatusMenu from './StatusMenu';
 import { TablePagination, ThemeProvider } from '@mui/material';
 import TablePaginationControls from './TablePaginationControls';
-import { TicketTableProps, TicketObj } from '@/lib/types';
+import { TicketObj, TicketTableProps } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useTicket } from '@/contexts/TicketContext';
 import { tableTitles, tableTheme } from '@/lib/utils/ticketsPanel';
+import { handleChangePage, handleChangeRowsPerPage, drillTicket } from '../lib/utils/ticketsPanel';
 
 
 const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
@@ -24,22 +25,11 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tickets.length) : 0;
 
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const drillTicket = (ticket: TicketObj): void => {
-        setCurrentTicket(ticket);
-        router.push(`/admin/ticketResponse/${ticket.id}`);
-    }
+    const onHandleChangePage = handleChangePage(setPage);
+    const onHandleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => 
+        handleChangeRowsPerPage(event, setPage, setRowsPerPage);
+    const onDrillTicket = (ticket: TicketObj) => 
+        drillTicket(ticket, setCurrentTicket, router);
 
     return (
         <ThemeProvider theme={tableTheme}>
@@ -55,7 +45,7 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                     <TableBody>
                     {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
                     .map((ticket, index) =>
-                            <TableRow key={ticket.name + index} onClick={() => drillTicket(ticket)}>
+                            <TableRow key={ticket.name + index} onClick={() => onDrillTicket(ticket)}>
                                 <TableCell sx={{color: '#3B82F6'}}>{ticket.id}</TableCell>
                                 <TableCell sx={{color: '#3B82F6'}}>{ticket.name}</TableCell>
                                 <TableCell sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.email}</TableCell>
@@ -91,8 +81,8 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                                     native: true,
                                     },
                                 }}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                onPageChange={onHandleChangePage}
+                                onRowsPerPageChange={onHandleChangeRowsPerPage}
                                 ActionsComponent={TablePaginationControls}
                             />
                         </TableRow>
