@@ -1,11 +1,11 @@
 'use client'
 import * as React from 'react';
-import { TicketContextType, TicketProps } from '@/lib/types';
+import { TicketContextType, TicketObj } from '@/lib/types';
 
 const TicketContext = React.createContext<TicketContextType | null>(null);
 
 export const TicketProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
-    const [currentTicket, setCurrentTicket] = React.useState<TicketProps | null>(null);
+    const [currentTicket, setCurrentTicket] = React.useState<TicketObj | null>(null);
 
     const value = {
         currentTicket,
