@@ -8,13 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableFooter from '@mui/material/TableFooter';
 import StatusMenu from './StatusMenu';
-import { TablePagination, ThemeProvider, createTheme } from '@mui/material';
+import { TablePagination, ThemeProvider } from '@mui/material';
 import TablePaginationControls from './TablePaginationControls';
 import { TicketTableProps, TicketObj } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useTicket } from '@/contexts/TicketContext';
+import { tableTitles, tableTheme } from '@/lib/utils/ticketsPanel';
 
-const tableTitles: string[] = ['Ticket ID', 'Name', 'Email', 'Description', 'Created At', 'Updated At', 'Status'];
 
 const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
     const { setCurrentTicket } = useTicket();
@@ -37,17 +37,9 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
     };
 
     const drillTicket = (ticket: TicketObj): void => {
-        console.log(ticket);
         setCurrentTicket(ticket);
         router.push(`/admin/ticketResponse/${ticket.id}`);
     }
-
-    const tableTheme = createTheme({
-        typography: {
-            fontFamily: "Atkinson Hyperlegible",
-            fontSize: 18,
-        }
-    })
 
     return (
         <ThemeProvider theme={tableTheme}>
