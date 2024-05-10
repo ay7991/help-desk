@@ -55,11 +55,11 @@ const StatusMenu: React.FC<StatusProps> = ({ currStatus, currID }) => {
   return (
     <>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <Select value={status} onChange={updateStatus}>
-          <MenuItem value={'OPEN'}> OPEN </MenuItem>
-          <MenuItem value={'IN PROGRESS'}> IN PROGRESS </MenuItem>
-          <MenuItem value={'RESOLVED'}> RESOLVED </MenuItem>
-          <MenuItem value={'CLOSED'}> CLOSED </MenuItem>
+        <Select sx={{color: '#3B82F6'}} value={status} onChange={updateStatus}>
+          <MenuItem sx={{color: '#3B82F6'}} value={'OPEN'}> OPEN </MenuItem>
+          <MenuItem sx={{color: '#3B82F6'}} value={'IN PROGRESS'}> IN PROGRESS </MenuItem>
+          <MenuItem sx={{color: '#3B82F6'}} value={'RESOLVED'}> RESOLVED </MenuItem>
+          <MenuItem sx={{color: '#3B82F6'}} value={'CLOSED'}> CLOSED </MenuItem>
         </Select>
       </FormControl>
       { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color} />}
