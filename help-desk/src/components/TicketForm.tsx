@@ -57,12 +57,12 @@ const TicketForm = () => {
     }
 
     return (
-        <>
-            <form className="flex flex-col w-96" onSubmit={submitTicket}>
+        <main>
+            <form id="ticketForm" onSubmit={submitTicket}>
                 <label className="flex flex-col text-white text-lg"> 
                     Name 
                     <input 
-                        className="border-solid mb-4 pl-1 rounded-md" 
+                        className="ticketInput" 
                         type='text' 
                         placeholder='Name' 
                         name='name' 
@@ -74,7 +74,7 @@ const TicketForm = () => {
                 <label className="flex flex-col text-white text-lg">
                     Email
                     <input 
-                        className="border-solid mb-4 pl-1 rounded-md" 
+                        className="ticketInput" 
                         type='email' 
                         placeholder='Email' 
                         name='email' 
@@ -97,7 +97,7 @@ const TicketForm = () => {
                 <button className="text-white text-xl" type="submit"> Submit </button>
             </form>
             { showNotif && <Notification message={message} onClose={() => setShowNotif(false)} color={color} />}
-        </>
+        </main>
     );
 }
 
