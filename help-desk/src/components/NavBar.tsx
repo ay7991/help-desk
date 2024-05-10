@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const NavBar: React.FC = () => {
     return (
-        <nav className="flex justify-end pr-20 pt-4 text-xl text-blue-500">
+        <nav id="navbar">
             <Link href='/admin/login'> Admin </Link>
             <Link href='/' className="ml-12"> Submit Tickets </Link>
         </nav>
