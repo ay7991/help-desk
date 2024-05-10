@@ -55,7 +55,7 @@
 }
 
 /* Mobile Specs */
-@media screen and (max-width: 912px) {
+@media screen and (max-width: 842px) {
   #divTicketForm {
     width: 50%;
     height: 90%;
