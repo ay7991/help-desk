@@ -13,8 +13,8 @@ import TablePaginationControls from './TablePaginationControls';
 import { TicketObj, TicketTableProps } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useTicket } from '@/contexts/TicketContext';
-import { tableTitles, tableTheme } from '@/lib/utils/ticketsPanel';
-import { handleChangePage, handleChangeRowsPerPage, drillTicket } from '../lib/utils/ticketsPanel';
+import { tableTitles, tableTheme } from '@/lib/utils/ticketTable';
+import { handleChangePage, handleChangeRowsPerPage, drillTicket } from '../lib/utils/ticketTable';
 
 
 const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
@@ -45,13 +45,13 @@ const TicketTable: React.FC<TicketTableProps> = ({ tickets }) => {
                     <TableBody>
                     {(rowsPerPage > 0 ? tickets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : tickets)
                     .map((ticket, index) =>
-                            <TableRow key={ticket.name + index} onClick={() => onDrillTicket(ticket)}>
-                                <TableCell sx={{color: '#3B82F6'}}>{ticket.id}</TableCell>
-                                <TableCell sx={{color: '#3B82F6'}}>{ticket.name}</TableCell>
-                                <TableCell sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.email}</TableCell>
-                                <TableCell sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.description}</TableCell>
-                                <TableCell sx={{color: '#3B82F6'}}>{ticket.createdAt.slice(0, 10)}</TableCell>
-                                <TableCell sx={{color: '#3B82F6'}}>{ticket.updatedAt.slice(0, 10)}</TableCell>
+                            <TableRow hover key={ticket.name + index}>
+                                <TableCell onClick={() => {onDrillTicket(ticket)}} sx={{color: '#3B82F6'}}>{ticket.id}</TableCell>
+                                <TableCell onClick={() => {onDrillTicket(ticket)}} sx={{color: '#3B82F6'}}>{ticket.name}</TableCell>
+                                <TableCell onClick={() => {onDrillTicket(ticket)}} sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.email}</TableCell>
+                                <TableCell onClick={() => {onDrillTicket(ticket)}} sx={{ maxWidth: 300, overflow: 'auto', color: '#3B82F6' }}>{ticket.description}</TableCell>
+                                <TableCell onClick={() => {onDrillTicket(ticket)}} sx={{color: '#3B82F6'}}>{ticket.createdAt.slice(0, 10)}</TableCell>
+                                <TableCell onClick={() => {onDrillTicket(ticket)}} sx={{color: '#3B82F6'}}>{ticket.updatedAt.slice(0, 10)}</TableCell>
                                 <TableCell>
                                     <StatusMenu currStatus={ticket.status} currID={ticket.id} />
                                 </TableCell>
