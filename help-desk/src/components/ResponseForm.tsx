@@ -6,10 +6,8 @@ import Notification from './Notification';
 const ResponseForm: React.FC<ResponseFormProps> = ({ email }) => {
     const [sender, setSender] = React.useState('');
     const [response, setResponse] = React.useState('');
-
     const [showNotif, setShowNotif] = React.useState(false);
     const [message, setMessage] = React.useState('');
-
     const [color, setColor] = React.useState('');
 
     const resetForm = (): void => {
